@@ -11,6 +11,18 @@
 - Relevant Coursework: EECS 168, 210, 268, currently enrolled in EECS 330, 348, 388, 468
 - Programming Languages/Libraries: C, Javascript, HTML, Python
 
+**William Whitehead**
+- Contact: w412w955@ku.edu
+- Availability:
+  - Monday: 3:00 pm and later
+  - Tuesday: 3:00 pm and later
+  - Wednesday: 3:00 pm and later
+  - Thursday's: 3:00 pm and later
+  - Saturday / Sunday: Anytime
+- Computer Science major - Sophmore (Dec 2025)
+- Relevant Coursework: EECS 168, 268, 140, currently enrolled in EECS 348, 388, 290
+- Programming Languages/Libraries: Python, C, Javascript, HTML, CSS
+
 
 ## Roles & Responsibilities
 #### Team Administrator: 
