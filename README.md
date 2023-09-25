@@ -8,7 +8,7 @@
   - Tuesday's, Wednesday's and Thursday's: 4:00 pm and later
   - Saturday's and Sunday's: Anytime
 - Computer Science major - Sophmore (2025)
-- Relevant Coursework: EECS 168, 210, 268, currently enrolled in EECS 330, 348, 388, 468
+- Relevant Coursework: EECS 140, 168, 210, 268, currently enrolled in EECS 330, 348, 388, 468
 - Programming Languages/Libraries: C, Javascript, HTML, Python
 
 ***William Whitehead***
