@@ -36,6 +36,18 @@
 - Relevant Coursework: EECS 169, 268, 140, Enrolled in EECS 348, 210
 - Programming Language: Python
 
+  **Max Biundo**
+- Contact: m679b014@home.ku.edu
+- Availability:
+  - Monday: 1:00 pm- 5:00 pm
+  - Tuesday: 4:00 pm- 6:00 pm
+  - Wednesday: 4:00 pm- 6:00 pm
+  - Thursday: 4:00 pm- 8:00 pm
+  - Saturday / Sunday: 10:00 am- 6:00 pm
+- Computer Science major - Sophmore (May 2026)
+- Relevant Coursework: EECS 168, 268, 140, currently enrolled in EECS 348
+- Programming Languages/Libraries: Python, C
+
 ## Roles & Responsibilities
 #### Project Leader - Max Biundo:
 - Guides the rest of the group through the project
