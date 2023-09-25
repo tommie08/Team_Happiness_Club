@@ -32,7 +32,7 @@
   - Thursday: 5:00 pm and later
   - Friday: 2:00 pm - 3:00 pm ; 5:00 pm and later
   - Saturday / Sunday: Anytime
-- Computer Science major - Sophmore (Dec 2025)
+- Computer Science major - Sophomore (Dec 2025)
 - Relevant Coursework: EECS 168, 268, 141, currently enrolled in EECS 348, 388, 210
 - Programming Languages/Libraries: Python, C, HTML, CSS
 
