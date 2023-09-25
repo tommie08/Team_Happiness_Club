@@ -31,8 +31,8 @@
 - Finds any and all risks that could arise throughout the course of the development
 #### Quality Control - Will Whitehead:
 - Searches for bugs or possible errors in the code to fix before they become significant issues
-#### Configuration Management
-- 
+#### Configuration Management: Joshua Lee
+- In charge of creating names and marking and submitting work. should make work readable to people who didn’t write the program
 
 
 
