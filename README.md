@@ -23,6 +23,18 @@
 - Relevant Coursework: EECS 168, 268, 140, currently enrolled in EECS 348, 388, 290
 - Programming Languages/Libraries: Python, C, Javascript, HTML, CSS
 
+**Joe Hotze**
+- Contact: jmhotze@ku.edu
+- Availability:
+  - Monday: 2:00 pm and later
+  - Tuesday: Before 11 am
+  - Wednesday: 2:00 pm and later
+  - Thursday: Before 11 am
+  - Friday: 2:00 pm and later
+  - Saturday / Sunday: All day
+- Computer Science major - Sophomore (Spring 2023)
+- Relevant Coursework: EECS 169, 268, 140, Enrolled in EECS 348, 210
+- Programming Language: Python
 
 ## Roles & Responsibilities
 #### Project Leader - Max Biundo:
