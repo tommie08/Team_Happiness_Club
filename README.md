@@ -69,7 +69,7 @@
 #### Quality Control - Will Whitehead:
 - Searches for bugs or possible errors in the code to fix before they become significant issues
 #### Configuration Management: Joshua Lee
-- In charge of creating names and marking and submitting work. should make work readable to people who didn’t write the program
+- Make sure project artifacts are sufficiently named and marked for submission. Make sure work is readable to people who didn’t write the program
 #### Programmer: Tommy Lam and Gunther Leuchtefeld
 - Write the code for the project
 
