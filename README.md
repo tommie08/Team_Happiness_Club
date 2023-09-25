@@ -26,11 +26,11 @@
 
 ## Roles & Responsibilities
 #### Team Administrator: 
-#### Project Leader:
+#### Project Leader - Max Biundo:
 - Guides the rest of the group through the project
-#### Risk Manager:
+#### Risk Manager - Joe Hotze:
 - Finds any and all risks that could arise throughout the course of the development
-#### Quality Control:
+#### Quality Control - Will Whitehead:
 - Searches for bugs or possible errors in the code to fix before they become significant issues
 #### Configuration Management
 - 
