@@ -32,7 +32,7 @@
   - Thursday: Before 11 am
   - Friday: 2:00 pm and later
   - Saturday / Sunday: All day
-- Computer Science major - Sophomore (Spring 2023)
+- Computer Science major - Sophomore (Spring 2026)
 - Relevant Coursework: EECS 169, 268, 140, Enrolled in EECS 348, 210
 - Programming Language: Python
 
