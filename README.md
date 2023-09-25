@@ -1,4 +1,4 @@
-# Team Happiness Club
+# Team Happiness Club - EvalEx
 
 ## Team Members
 **Tommy Lam**
