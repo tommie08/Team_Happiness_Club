@@ -25,7 +25,6 @@
 
 
 ## Roles & Responsibilities
-#### Team Administrator: 
 #### Project Leader - Max Biundo:
 - Guides the rest of the group through the project
 #### Risk Manager - Joe Hotze:
