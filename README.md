@@ -26,4 +26,14 @@
 
 ## Roles & Responsibilities
 #### Team Administrator: 
+#### Project Leader:
+- Guides the rest of the group through the project
+#### Risk Manager:
+- Finds any and all risks that could arise throughout the course of the development
+#### Quality Control:
+- Searches for bugs or possible errors in the code to fix before they become significant issues
+#### Configuration Management
+- 
+
+
 
