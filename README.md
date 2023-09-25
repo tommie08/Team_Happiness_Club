@@ -1,7 +1,7 @@
 # Team Happiness Club - EvalEx
 
 ## Team Members
-**Tommy Lam**
+***Tommy Lam***
 - Contact: tommy.lam59@ku.edu
 - Availability:
   - Monday's: 1:00 pm and later
@@ -11,7 +11,7 @@
 - Relevant Coursework: EECS 168, 210, 268, currently enrolled in EECS 330, 348, 388, 468
 - Programming Languages/Libraries: C, Javascript, HTML, Python
 
-**William Whitehead**
+***William Whitehead***
 - Contact: w412w955@ku.edu
 - Availability:
   - Monday: 3:00 pm and later
@@ -23,7 +23,7 @@
 - Relevant Coursework: EECS 168, 268, 140, currently enrolled in EECS 348, 388, 290
 - Programming Languages/Libraries: Python, C, Javascript, HTML, CSS
 
-**Joe Hotze**
+***Joe Hotze***
 - Contact: jmhotze@ku.edu
 - Availability:
   - Monday: 2:00 pm and later
@@ -36,7 +36,7 @@
 - Relevant Coursework: EECS 169, 268, 140, Enrolled in EECS 348, 210
 - Programming Language: Python
 
-  **Max Biundo**
+  ***Max Biundo***
 - Contact: m679b014@home.ku.edu
 - Availability:
   - Monday: 1:00 pm- 5:00 pm
