@@ -23,6 +23,19 @@
 - Relevant Coursework: EECS 168, 268, 140, currently enrolled in EECS 348, 388, 290
 - Programming Languages/Libraries: Python, C, Javascript, HTML, CSS
 
+***Joshua Lee***
+- Contact: joshua.lee@ku.edu
+- Availability:
+  - Monday: 1:00 pm and later
+  - Tuesday: 4:00 pm - 5:15 pm ; 7:00 pm and later
+  - Wednesday: 1:00 pm - 2:00 pm ; 4:00 pm - 6:00 pm ; 7:00 pm and later
+  - Thursday: 5:00 pm and later
+  - Friday: 2:00 pm - 3:00 pm ; 5:00 pm and later
+  - Saturday / Sunday: Anytime
+- Computer Science major - Sophmore (Dec 2025)
+- Relevant Coursework: EECS 168, 268, 141, currently enrolled in EECS 348, 388, 210
+- Programming Languages/Libraries: Python, C, HTML, CSS
+
 ***Joe Hotze***
 - Contact: jmhotze@ku.edu
 - Availability:
