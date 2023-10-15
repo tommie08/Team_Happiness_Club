@@ -11,3 +11,10 @@
 - **Team Members attended:** Joe, Joshua, Max, Tommy, Will
 - **Purpose of meeting:** Complete project plan draft
 - **Decisions made:** N/A
+
+### 10/15/23 - Meeting 3:
+- **Date and Time:** Oct 15 2023, @5:20 PM
+- **Place:** Virtually
+- **Team Members attended:** Joshua, Max, Tommy, Will
+- **Purpose of meeting:** Complete software requirements specification
+- **Decisions made:** N/A
