@@ -18,3 +18,10 @@
 - **Team Members attended:** Joe, Joshua, Tommy, Will
 - **Purpose of meeting:** Complete software requirements specification
 - **Decisions made:** N/A
+
+### 11/12/23 - Meeting 4:
+- **Date and Time:** Nov 12 2023, @9:00 PM
+- **Place:** Virtually
+- **Team Members attended:** Joshua, Tommy, Will, Max
+- **Purpose of meeting:** Complete Software Architecutre
+- **Decisions made:** N/A
