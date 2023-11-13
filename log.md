@@ -22,6 +22,6 @@
 ### 11/12/23 - Meeting 4:
 - **Date and Time:** Nov 12 2023, @9:00 PM
 - **Place:** Virtually
-- **Team Members attended:** Joshua, Tommy, Will, Max
+- **Team Members attended:** Joshua, Tommy, Will, Max, Joe, Gunther
 - **Purpose of meeting:** Complete Software Architecutre
 - **Decisions made:** N/A
