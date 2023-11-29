@@ -130,46 +130,37 @@ public:
 std::vector<Token> tokenize(const std::string& input) {
     std::vector<Token> tokens;
     std::string numberBuffer;
-    bool expectNumber = true; // Flag to indicate if we should expect a number next
+    bool expectNumber = true; // Initially, we expect a number
 
     for (size_t i = 0; i < input.length(); ++i) {
         char c = input[i];
 
-        if (isdigit(c) || c == '.') {
-            numberBuffer += c;
-            expectNumber = false; // After a number, we do not immediately expect another number
+        if (isdigit(c) || c == '.' || (expectNumber && (c == '+' || c == '-'))) {
+            numberBuffer += c; // Accumulate digits or unary operator with number
+            expectNumber = false;
         } else {
             if (!numberBuffer.empty()) {
-                try {
-                    tokens.push_back(Token(std::stod(numberBuffer)));
-                } catch (const std::invalid_argument&) {
-                    throw std::runtime_error("Invalid numeric value: " + numberBuffer);
-                }
+                tokens.push_back(Token(std::stod(numberBuffer)));
                 numberBuffer.clear();
             }
 
             if (c == ' ') continue;
 
-            // Handle unary operators
-            if ((c == '+' || c == '-') && expectNumber) {
-                numberBuffer += c; // Treat as part of the next number
-            } else {
-                if (!isOperator(c) && c != '(' && c != ')') {
+            // If not a digit, decimal, or unary operator, it's an operator or parenthesis
+            if (c != '(' && c != ')') {
+                if (!isOperator(c)) {
                     throw std::runtime_error("Invalid character in expression");
                 }
-
                 tokens.push_back(Token(c));
-                expectNumber = (c != ')'); // Expect a number next unless the current token is a closing parenthesis
+            } else {
+                tokens.push_back(Token(c));
+                expectNumber = (c == '('); // After '(', we expect a number (or unary operator)
             }
         }
     }
 
     if (!numberBuffer.empty()) {
-        try {
-            tokens.push_back(Token(std::stod(numberBuffer)));
-        } catch (const std::invalid_argument&) {
-            throw std::runtime_error("Invalid numeric value: " + numberBuffer);
-        }
+        tokens.push_back(Token(std::stod(numberBuffer)));
     }
 
     return tokens;
