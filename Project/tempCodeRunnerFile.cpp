@@ -135,7 +135,7 @@ std::vector<Token> tokenize(const std::string& input) {
     for (size_t i = 0; i < input.length(); ++i) {
         char c = input[i];
 
-        if (isdigit(c) || c == '.') {
+        if (isdigit(c) || (expectNumber && (c == '+' || c == '-')) || c == '.') {
             numberBuffer += c;
             expectNumber = false; // After a number, we do not immediately expect another number
         } else {
@@ -150,17 +150,12 @@ std::vector<Token> tokenize(const std::string& input) {
 
             if (c == ' ') continue;
 
-            // Handle unary operators
-            if ((c == '+' || c == '-') && expectNumber) {
-                numberBuffer += c; // Treat as part of the next number
-            } else {
-                if (!isOperator(c) && c != '(' && c != ')') {
-                    throw std::runtime_error("Invalid character in expression");
-                }
-
-                tokens.push_back(Token(c));
-                expectNumber = (c != ')'); // Expect a number next unless the current token is a closing parenthesis
+            if (!isOperator(c) && c != '(' && c != ')') {
+                throw std::runtime_error("Invalid character in expression");
             }
+
+            tokens.push_back(Token(c));
+            expectNumber = (c != ')'); // Expect a number next unless the current token is a closing parenthesis
         }
     }
 
