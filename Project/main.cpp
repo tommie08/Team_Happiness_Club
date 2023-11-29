@@ -1,101 +1,191 @@
 #include <iostream>
+#include <vector>
 #include <stack>
 #include <string>
-#include <cctype>
-#include <map>
-#include <sstream>
+#include <cmath>
 #include <stdexcept>
 
-// Function to check if a character is an operator
-bool isOperator(char c) {
-    return c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '^';
-}
+class Token {
+public:
+    enum Type { NUMBER, OPERATOR, PARENTHESIS };
+    Type type;
+    double value;
+    char symbol;
 
-// Function to determine the precedence of an operator
-int precedence(char c) {
-    if (c == '^') return 3;
-    if (c == '*' || c == '/' || c == '%') return 2;
-    if (c == '+' || c == '-') return 1;
-    return -1;
-}
+    Token(double val) : type(NUMBER), value(val), symbol(0) {}
+    Token(char sym) : type(isOperator(sym) ? OPERATOR : PARENTHESIS), value(0), symbol(sym) {}
 
-// Function to convert infix expression to postfix
-std::string infixToPostfix(const std::string& infix) {
-    std::stack<char> stack;
-    std::string postfix;
+private:
+    static bool isOperator(char c) {
+        return std::string("+-*/%^").find(c) != std::string::npos;
+    }
+};
 
-    for (char c : infix) {
-        if (std::isdigit(c)) {
-            postfix += c;
-        } else if (c == '(') {
-            stack.push(c);
-        } else if (c == ')') {
-            while (!stack.empty() && stack.top() != '(') {
-                postfix += stack.top();
-                stack.pop();
+class ExpressionTreeNode {
+public:
+    Token token;
+    ExpressionTreeNode *left, *right;
+
+    ExpressionTreeNode(Token tk) : token(tk), left(nullptr), right(nullptr) {}
+};
+
+class ExpressionTreeBuilder {
+public:
+    ExpressionTreeNode* buildTree(const std::vector<Token>& infixTokens) {
+        std::vector<Token> postfixTokens = toPostfix(infixTokens);
+        std::stack<ExpressionTreeNode*> stack;
+
+        for (const auto& token : postfixTokens) {
+            if (token.type == Token::NUMBER) {
+                stack.push(new ExpressionTreeNode(token));
+            } else if (token.type == Token::OPERATOR) {
+                ExpressionTreeNode* node = new ExpressionTreeNode(token);
+
+                if (!stack.empty()) {
+                    node->right = stack.top(); stack.pop();
+                }
+                if (!stack.empty()) {
+                    node->left = stack.top(); stack.pop();
+                }
+
+                stack.push(node);
             }
-            stack.pop(); // Remove the '(' from the stack
-        } else if (isOperator(c)) {
-            while (!stack.empty() && precedence(c) <= precedence(stack.top())) {
-                postfix += stack.top();
-                stack.pop();
+        }
+
+        return stack.empty() ? nullptr : stack.top();
+    }
+
+private:
+    std::vector<Token> toPostfix(const std::vector<Token>& tokens) {
+        std::stack<Token> stack;
+        std::vector<Token> output;
+
+        for (const auto& token : tokens) {
+            if (token.type == Token::NUMBER) {
+                output.push_back(token);
+            } else if (token.type == Token::OPERATOR) {
+                while (!stack.empty() && stack.top().type != Token::PARENTHESIS && 
+                       getPrecedence(stack.top()) >= getPrecedence(token)) {
+                    output.push_back(stack.top());
+                    stack.pop();
+                }
+                stack.push(token);
+            } else if (token.symbol == '(') {
+                stack.push(token);
+            } else if (token.symbol == ')') {
+                while (!stack.empty() && stack.top().symbol != '(') {
+                    output.push_back(stack.top());
+                    stack.pop();
+                }
+                if (!stack.empty()) stack.pop(); // Pop '('
             }
-            stack.push(c);
+        }
+
+        while (!stack.empty()) {
+            output.push_back(stack.top());
+            stack.pop();
+        }
+
+        return output;
+    }
+
+    int getPrecedence(const Token& token) {
+        switch (token.symbol) {
+            case '+': case '-': return 1;
+            case '*': case '/': case '%': return 2;
+            case '^': return 3;
+            default: return -1;
+        }
+    }
+};
+
+class ExpressionTreeEvaluator {
+public:
+    double evaluate(ExpressionTreeNode* root) {
+        if (!root) return 0;
+
+        if (root->token.type == Token::NUMBER) {
+            return root->token.value;
+        }
+
+        double leftVal = evaluate(root->left);
+        double rightVal = evaluate(root->right);
+
+        switch (root->token.symbol) {
+            case '+': return leftVal + rightVal;
+            case '-': return leftVal - rightVal;
+            case '*': return leftVal * rightVal;
+            case '/': 
+                if (rightVal == 0) throw std::runtime_error("Division by zero");
+                return leftVal / rightVal;
+            case '%': return static_cast<int>(leftVal) % static_cast<int>(rightVal);
+            case '^': return std::pow(leftVal, rightVal);
+            default: throw std::runtime_error("Invalid operator");
+        }
+    }
+};
+
+std::vector<Token> tokenize(const std::string& input) {
+    std::vector<Token> tokens;
+    std::string numberBuffer;
+
+    for (size_t i = 0; i < input.length(); ++i) {
+        char c = input[i];
+
+        if (isdigit(c) || c == '.') {
+            numberBuffer += c;
+        } else {
+            if (!numberBuffer.empty()) {
+                tokens.push_back(Token(std::stod(numberBuffer)));
+                numberBuffer.clear();
+            }
+
+            if (c == ' ') continue;
+
+            if ((c == '+' || c == '-') && (tokens.empty() || tokens.back().type != Token::NUMBER && tokens.back().symbol != ')')) {
+                numberBuffer += c;
+            } else {
+                tokens.push_back(Token(c));
+            }
         }
     }
 
-    // Pop all remaining operators from the stack
-    while (!stack.empty()) {
-        postfix += stack.top();
-        stack.pop();
+    if (!numberBuffer.empty()) {
+        tokens.push_back(Token(std::stod(numberBuffer)));
     }
 
-    return postfix;
+    return tokens;
 }
 
-// Function to evaluate postfix expression
-double evaluatePostfix(const std::string& postfix) {
-    std::stack<double> stack;
+void deleteTree(ExpressionTreeNode* node) {
+    if (node) {
+        deleteTree(node->left);
+        deleteTree(node->right);
+        delete node;
+    }
+}
 
-    for (char c : postfix) {
-        if (std::isdigit(c)) {
-            stack.push(c - '0'); // Convert char to int
-        } else if (isOperator(c)) {
-            double val2 = stack.top();
-            stack.pop();
-            double val1 = stack.top();
-            stack.pop();
+void runTest(const std::string& expression, double expected) {
+    std::vector<Token> tokens = tokenize(expression);
+    ExpressionTreeBuilder builder;
+    ExpressionTreeNode* root = builder.buildTree(tokens);
+    ExpressionTreeEvaluator evaluator;
+    double result = evaluator.evaluate(root);
 
-            switch (c) {
-                case '+': stack.push(val1 + val2); break;
-                case '-': stack.push(val1 - val2); break;
-                case '*': stack.push(val1 * val2); break;
-                case '/': 
-                    if (val2 == 0) throw std::runtime_error("Division by zero");
-                    stack.push(val1 / val2); 
-                    break;
-                case '%': stack.push(static_cast<int>(val1) % static_cast<int>(val2)); break;
-                case '^': stack.push(std::pow(val1, val2)); break;
-                default: throw std::runtime_error("Invalid operator");
-            }
-        }
+    if (std::abs(result - expected) < 1e-6) {
+        std::cout << "Test passed for: " << expression << std::endl;
+    } else {
+        std::cerr << "Test failed for: " << expression << ". Expected: " << expected << ", got: " << result << std::endl;
     }
 
-    return stack.top();
+    deleteTree(root);
 }
 
 int main() {
-    std::string expression;
-    std::cout << "Enter an arithmetic expression: ";
-    std::getline(std::cin, expression);
-
-    try {
-        std::string postfix = infixToPostfix(expression);
-        double result = evaluatePostfix(postfix);
-        std::cout << "Result: " << result << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+    // Example Tests
+    runTest("2 + 3 * 4", 14);
+    runTest("(2 + 3) * 4", 20);
+    // More tests...
 
     return 0;
 }
