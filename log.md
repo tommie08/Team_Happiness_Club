@@ -25,3 +25,10 @@
 - **Team Members attended:** Joshua, Tommy, Will, Max, Joe, Gunther
 - **Purpose of meeting:** Complete Software Architecutre
 - **Decisions made:** N/A
+
+### 11/29/23 - Meeting 5:
+- **Date and Time:** Nov 29 2023, @4:30 PM
+- **Place:** In-Person
+- **Team Members attended:** Joshua, Tommy, Will, Max, Joe, Gunther
+- **Purpose of meeting:** Code and Documents 5 & 6
+- **Decisions made:** N/A
