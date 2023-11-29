@@ -5,6 +5,10 @@
 #include <cmath>
 #include <stdexcept>
 
+bool isOperator(char c) {
+    return std::string("+-*/%^").find(c) != std::string::npos;
+}
+
 class Token {
 public:
     enum Type { NUMBER, OPERATOR, PARENTHESIS };
@@ -14,11 +18,6 @@ public:
 
     Token(double val) : type(NUMBER), value(val), symbol(0) {}
     Token(char sym) : type(isOperator(sym) ? OPERATOR : PARENTHESIS), value(0), symbol(sym) {}
-
-private:
-    static bool isOperator(char c) {
-        return std::string("+-*/%^").find(c) != std::string::npos;
-    }
 };
 
 class ExpressionTreeNode {
