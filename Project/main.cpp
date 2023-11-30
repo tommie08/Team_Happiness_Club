@@ -218,6 +218,22 @@ int main() {
     runTest("+2 ^ (-3)", 0.125);
     runTest("-(+2) * (+3) - (-4) / (-5)", -6.8);
     // More tests...
+    std::string userInput;
+    std::cout << "Enter an expression to evaluate or type 'exit' to quit: ";
+    while (std::getline(std::cin, userInput) && userInput != "exit") {
+        try {
+            std::vector<Token> tokens = tokenize(userInput);
+            ExpressionTreeBuilder builder;
+            ExpressionTreeNode* root = builder.buildTree(tokens);
+            ExpressionTreeEvaluator evaluator;
+            double result = evaluator.evaluate(root);
+            std::cout << "Result: " << result << std::endl;
+            deleteTree(root);
+        } catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+        std::cout << "\nEnter another expression or type 'exit' to quit: ";
+    }
 
     return 0;
 }
