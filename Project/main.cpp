@@ -130,35 +130,45 @@ public:
 std::vector<Token> tokenize(const std::string& input) {
     std::vector<Token> tokens;
     std::string numberBuffer;
-    bool expectNumber = true; // Initially, we expect a number
+    bool expectNumber = true; // Flag indicating if a number is expected
 
     for (size_t i = 0; i < input.length(); ++i) {
         char c = input[i];
 
-        if (isdigit(c) || c == '.' || (expectNumber && (c == '+' || c == '-'))) {
-            numberBuffer += c; // Accumulate digits or unary operator with number
+        // Check if the character is a digit or a decimal point
+        if (isdigit(c) || c == '.') {
+            numberBuffer += c;
             expectNumber = false;
         } else {
+            // Handle unary operators
+            if ((c == '+' || c == '-') && expectNumber) {
+                // Check if the unary operator is followed by a digit or decimal
+                if (i + 1 < input.length() && (isdigit(input[i + 1]) || input[i + 1] == '.')) {
+                    numberBuffer += c; // Treat as part of the next number
+                    continue;
+                }
+            }
+
+            // Process the accumulated number, if any
             if (!numberBuffer.empty()) {
                 tokens.push_back(Token(std::stod(numberBuffer)));
                 numberBuffer.clear();
             }
 
+            // Skip spaces
             if (c == ' ') continue;
 
-            // If not a digit, decimal, or unary operator, it's an operator or parenthesis
-            if (c != '(' && c != ')') {
-                if (!isOperator(c)) {
-                    throw std::runtime_error("Invalid character in expression");
-                }
+            // Add operator or parenthesis tokens
+            if (isOperator(c) || c == '(' || c == ')') {
                 tokens.push_back(Token(c));
+                expectNumber = (c == '('); // Expect a number after '('
             } else {
-                tokens.push_back(Token(c));
-                expectNumber = (c == '('); // After '(', we expect a number (or unary operator)
+                throw std::runtime_error("Invalid character in expression: " + std::string(1, c));
             }
         }
     }
 
+    // Process any remaining number in the buffer
     if (!numberBuffer.empty()) {
         tokens.push_back(Token(std::stod(numberBuffer)));
     }
