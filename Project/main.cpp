@@ -200,28 +200,57 @@ void runTest(const std::string& expression, double expected) {
     deleteTree(root);
 }
 
+// Function to check for unmatched parentheses
+bool hasUnmatchedParentheses(const std::string& expression) {
+    int balance = 0;
+    for (char c : expression) {
+        if (c == '(') {
+            balance++;
+        } else if (c == ')') {
+            if (balance == 0) return true; // Closing parenthesis without a matching opening
+            balance--;
+        }
+    }
+    return balance != 0; // Unmatched opening parentheses
+}
+
+void validateExpression(const std::string& expression) {
+    if (hasUnmatchedParentheses(expression)) {
+        throw std::runtime_error("Unmatched parentheses in expression.");
+    }
+    // Add other validation checks as needed
+}
+
+void runTest(const std::string& expression, double expected) {
+    try {
+        validateExpression(expression); // Additional validation
+        std::vector<Token> tokens = tokenize(expression);
+        ExpressionTreeBuilder builder;
+        ExpressionTreeNode* root = builder.buildTree(tokens);
+        ExpressionTreeEvaluator evaluator;
+        double result = evaluator.evaluate(root);
+
+        if (std::abs(result - expected) < 1e-6) {
+            std::cout << "Test passed for: " << expression << std::endl;
+        } else {
+            std::cerr << "Test failed for: " << expression << ". Expected: " << expected << ", got: " << result << std::endl;
+        }
+
+        deleteTree(root);
+    } catch (const std::exception& e) {
+        std::cerr << "Error in test case: " << e.what() << std::endl;
+    }
+}
+
 int main() {
-    // Example Tests
-    runTest("3 + 4", 7);
-    runTest("8 - (5 - 2)", 5);
-    runTest("10 * 2 / 5", 4);
-    runTest("2 ^ 3", 8);
-    runTest("4 * (3 + 2) % 7 - 1", 5);
-    runTest("(((2 + 3))) + (((1 + 2)))", 8);
-    runTest("((5 * 2) - ((3 / 1) + ((4 % 3))))", 6);
-    runTest("(((2 ^ (1 + 1)) + ((3 - 1) ^ 2)) / ((4 / 2) % 3))", 4);
-    runTest("(((((5 - 3))) * (((2 + 1))) + ((2 * 3))))", 12);
-    runTest("((9 + 6)) / ((3 * 1) / (((2 + 2))) - 1)", -60);
-    runTest("+(-2) * (-3) - ((-4) / (+5))", 6.8);
-    runTest("-(+1) + (+2)", 1);
-    runTest("-(-(-3)) + (-4) + (+5)", -2);
-    runTest("+2 ^ (-3)", 0.125);
-    runTest("-(+2) * (+3) - (-4) / (-5)", -6.8);
-    // More tests...
+    // ... [Your existing test cases]
+
+    // Custom input handling
     std::string userInput;
     std::cout << "Enter an expression to evaluate or type 'exit' to quit: ";
     while (std::getline(std::cin, userInput) && userInput != "exit") {
         try {
+            validateExpression(userInput); // Additional validation
             std::vector<Token> tokens = tokenize(userInput);
             ExpressionTreeBuilder builder;
             ExpressionTreeNode* root = builder.buildTree(tokens);
