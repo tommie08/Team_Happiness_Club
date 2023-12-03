@@ -184,22 +184,6 @@ void deleteTree(ExpressionTreeNode* node) {
     }
 }
 
-void runTest(const std::string& expression, double expected) {
-    std::vector<Token> tokens = tokenize(expression);
-    ExpressionTreeBuilder builder;
-    ExpressionTreeNode* root = builder.buildTree(tokens);
-    ExpressionTreeEvaluator evaluator;
-    double result = evaluator.evaluate(root);
-
-    if (std::abs(result - expected) < 1e-6) {
-        std::cout << "Test passed for: " << expression << std::endl;
-    } else {
-        std::cerr << "Test failed for: " << expression << ". Expected: " << expected << ", got: " << result << std::endl;
-    }
-
-    deleteTree(root);
-}
-
 // Function to check for unmatched parentheses
 bool hasUnmatchedParentheses(const std::string& expression) {
     int balance = 0;
