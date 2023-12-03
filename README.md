@@ -73,5 +73,53 @@
 #### Programmer: Tommy Lam and Gunther Leuchtefeld
 - Write the code for the project
 
+# Getting Started
+
+**EvalEx** is a simple-to-use system that can be executed on an operating system capable of running C++. To use the program, follow these steps:
+
+1. **Start the Program**: Run the executable, and you will be presented with a small menu.
+
+2. **Calculator Usage**: To use the calculator features of the program, simply type in an expression as you would into a normal calculator. Many operations are supported, including:
+
+   - Addition `+`
+   - Subtraction `-`
+   - Multiplication `*`
+   - Division `/`
+   - Modulo `%`
+   - Exponentiation `^`
+   - Parentheses `()`
+   - Positive or Negative `+/-`
+
+   **Important:** Pay attention to spaces when entering expressions. Spaces matter to distinguish between attaching a positive or negative operator to an integer and addition or subtraction. Negative and positive operators should be attached directly to an integer or set of parentheses, while spaces should be placed between expressions. Parentheses should also directly connect to the integers within them. For example:
+
+   - Correct: `8 - (5 / -2)`
+   - Incorrect: `10 + - 2`
+
+   Additionally, parentheses multiplication, such as in the case of `4(5 + 3)`, is not supported. Please utilize the multiplication operator `*` for situations like these. For example: `4 * (5 + 3)` would work without errors.
+
+3. **Examples**: You can find further examples of expressions that can be entered into the calculator in the "Examples" section below.
+
+# Advanced Features
+
+**EvalEx** has been extensively tested to ensure accuracy and precision. Advanced features that set **EvalEx** apart from others in the market include its state-of-the-art handling of extraneous parentheses, the inclusion of the modulo operator, and support for unary operators.
+
+# Troubleshooting
+
+Most problems within **EvalEx** have straightforward solutions:
+
+- Check for unmatched parentheses, letters, or special characters that **EvalEx** cannot handle.
+- Consistent errors not related to syntactical errors can often be fixed by recompiling the source code into a new executable. To do this:
+
+  1. Open the folder containing **EvalEx** in a terminal window.
+  2. Input the following command:
+     ```
+     g++ EvalEx.cpp -o evalex.exe
+     ```
+     This will recompile the code and create a new executable that is free from memory leaks and may work better.
+
+**Example 1: Simple Operators**
+Input:
+
+
 
 
