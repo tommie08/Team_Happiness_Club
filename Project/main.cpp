@@ -184,51 +184,43 @@ void deleteTree(ExpressionTreeNode* node) {
     }
 }
 
-// Function to check for unmatched parentheses
-bool hasUnmatchedParentheses(const std::string& expression) {
-    int balance = 0;
-    for (size_t i = 0; i < expression.length(); ++i) {
-        char c = expression[i];
-        if (c == '(') {
-            balance++;
-        } else if (c == ')') {
-            if (balance == 0) return true; // Closing parenthesis without a matching opening
-            balance--;
-        }
-    }
-    return balance != 0; // Unmatched opening parentheses
-}
-
-void validateExpression(const std::string& expression) {
-    if (hasUnmatchedParentheses(expression)) {
-        throw std::runtime_error("Unmatched parentheses in expression.");
-    }
-    // Add other validation checks as needed
-}
-
 void runTest(const std::string& expression, double expected) {
+    std::vector<Token> tokens = tokenize(expression);
+    ExpressionTreeBuilder builder;
+    ExpressionTreeNode* root = builder.buildTree(tokens);
+    ExpressionTreeEvaluator evaluator;
+    double result = evaluator.evaluate(root);
+
+    if (std::abs(result - expected) < 1e-6) {
+        std::cout << "Test passed for: " << expression << ". Expected: " << expected << ", got: " << result << std::endl;
+    } else {
+        std::cerr << "Test failed for: " << expression << ". Expected: " << expected << ", got: " << result << std::endl;
+    }
+
+    deleteTree(root);
+}
+
+void runInvalidTest(const std::string& expression, const std::string& expectedError) {
     try {
-        validateExpression(expression); // Additional validation
         std::vector<Token> tokens = tokenize(expression);
         ExpressionTreeBuilder builder;
         ExpressionTreeNode* root = builder.buildTree(tokens);
         ExpressionTreeEvaluator evaluator;
         double result = evaluator.evaluate(root);
-
-        if (std::abs(result - expected) < 1e-6) {
-            std::cout << "Test passed for: " << expression << std::endl;
-        } else {
-            std::cerr << "Test failed for: " << expression << ". Expected: " << expected << ", got: " << result << std::endl;
-        }
-
+        std::cerr << "Test failed for: " << expression << ". Expected error: " << expectedError << ", but no error occurred." << std::endl;
         deleteTree(root);
     } catch (const std::exception& e) {
-        std::cerr << "Error in test case: " << e.what() << std::endl;
+        std::string error = e.what();
+        if (error.find(expectedError) != std::string::npos) {
+            std::cout << "Test passed for: " << expression << ". Correctly identified error: " << error << std::endl;
+        } else {
+            std::cerr << "Test failed for: " << expression << ". Expected error: " << expectedError << ", got: " << error << std::endl;
+        }
     }
 }
 
 int main() {
-     // Example Tests
+    // Example Valid Tests
     runTest("3 + 4", 7);
     runTest("8 - (5 - 2)", 5);
     runTest("10 * 2 / 5", 4);
@@ -244,14 +236,24 @@ int main() {
     runTest("-(-(-3)) + (-4) + (+5)", -2);
     runTest("+2 ^ (-3)", 0.125);
     runTest("-(+2) * (+3) - (-4) / (-5)", -6.8);
-    // More tests...
 
-    // Custom input handling
+    // Invalid expression tests
+    runInvalidTest("2 * (4 + 3 - 1", "unmatched parentheses");
+    runInvalidTest("* 5 + 2", "missing operand");
+    runInvalidTest("4 / 0", "Division by zero");
+    runInvalidTest("5 (2 + 3)", "missing operator");
+    runInvalidTest("7 & 3", "Invalid character in expression: &");
+    runInvalidTest("(((3 + 4) - 2) + (1)", "mismatched parentheses");
+    runInvalidTest("((5 + 2) / (3 * 0))", "Division by zero");
+    runInvalidTest("((2 -) 1 + 3)", "missing operand");
+    runInvalidTest("((4 * 2) + ( - ))", "missing operand");
+    runInvalidTest("((7 * 3) @ 2)", "Invalid character in expression: @");
+
+    // User input handling
     std::string userInput;
-    std::cout << "Enter an expression to evaluate or type 'exit' to quit: ";
+    std::cout << "\nEnter an expression to evaluate or type 'exit' to quit: ";
     while (std::getline(std::cin, userInput) && userInput != "exit") {
         try {
-            validateExpression(userInput); // Additional validation
             std::vector<Token> tokens = tokenize(userInput);
             ExpressionTreeBuilder builder;
             ExpressionTreeNode* root = builder.buildTree(tokens);
