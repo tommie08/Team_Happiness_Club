@@ -246,24 +246,46 @@ void runInvalidTest(const std::string& expression, const std::string& expectedEr
 }
 
 int main() {
-    // Example Valid Tests
+    // Test Cases Add-01 to Add-02
     runTest("3 + 4", 7);
-    runTest("8 - (5 - 2)", 5);
-    runTest("10 * 2 / 5", 4);
-    runTest("2 ^ 3", 8);
-    runTest("4 * (3 + 2) % 7 - 1", 5);
     runTest("(((2 + 3))) + (((1 + 2)))", 8);
-    runTest("((5 * 2) - ((3 / 1) + ((4 % 3))))", 6);
+
+    //Test Case Sub-01
+    runTest("8 - (5 - 2)", 5);
+
+    //Test Cases Mul-01 to Mul-02
+    runTest("10 * 2", 20);
+    runTest("10 * 2 / 5", 4);
+
+    //Test Cases Div-01 to Div-02
+    runTest("15 / 3", 5);
+    runTest("(((20 / 5))) / (((10 / 10)))", 4);
+
+    //Test Cases Exp-01 to Exp-04
+    runTest("2 ^ 3", 8);
+    runTest("(2 ^ (3 ^ 3))", 134217728);
+    runTest("(-(2^(2^4)))", -65536);
+    runTest("(-2) ^ (-3)", -0.125);
+
+    //Test Cases Mix-01 to Mix-06
+    runTest("4 * (3 + 2) % 7 - 1", 5);
     runTest("(((2 ^ (1 + 1)) + ((3 - 1) ^ 2)) / ((4 / 2) % 3))", 4);
+    runTest("((5 * 2) - ((3 / 1) + ((4 % 3))))", 6);
     runTest("(((((5 - 3))) * (((2 + 1))) + ((2 * 3))))", 12);
     runTest("((9 + 6)) / ((3 * 1) / (((2 + 2))) - 1)", -60);
-    runTest("+(-2) * (-3) - ((-4) / (+5))", 6.8);
+    runTest("15 - 3 / 3", 14);
+    
+    //Test Cases Una-01 to Una-08
     runTest("-(+1) + (+2)", 1);
     runTest("-(-(-3)) + (-4) + (+5)", -2);
     runTest("+2 ^ (-3)", 0.125);
     runTest("-(+2) * (+3) - (-4) / (-5)", -6.8);
+    runTest("+(-2) * (-3) - ((-4) / (+5))", 6.8);
+    runTest("-(5 - 2)", -3);
+    runTest("-(-(+2) ^ 3)", 8);
+    runTest("-(+4) / (2 * 2)", -1);
 
-    // Invalid expression tests
+    // Test Cases Err-01 to Err-04
     runInvalidTest("4 / 0", "Division by zero");
     runInvalidTest("7 & 3", "Invalid character in expression: &");
     runInvalidTest("((5 + 2) / (3 * 0))", "Division by zero");
