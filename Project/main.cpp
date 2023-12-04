@@ -228,7 +228,23 @@ void runTest(const std::string& expression, double expected) {
 }
 
 int main() {
-    // ... [Your existing test cases]
+     // Example Tests
+    runTest("3 + 4", 7);
+    runTest("8 - (5 - 2)", 5);
+    runTest("10 * 2 / 5", 4);
+    runTest("2 ^ 3", 8);
+    runTest("4 * (3 + 2) % 7 - 1", 5);
+    runTest("(((2 + 3))) + (((1 + 2)))", 8);
+    runTest("((5 * 2) - ((3 / 1) + ((4 % 3))))", 6);
+    runTest("(((2 ^ (1 + 1)) + ((3 - 1) ^ 2)) / ((4 / 2) % 3))", 4);
+    runTest("(((((5 - 3))) * (((2 + 1))) + ((2 * 3))))", 12);
+    runTest("((9 + 6)) / ((3 * 1) / (((2 + 2))) - 1)", -60);
+    runTest("+(-2) * (-3) - ((-4) / (+5))", 6.8);
+    runTest("-(+1) + (+2)", 1);
+    runTest("-(-(-3)) + (-4) + (+5)", -2);
+    runTest("+2 ^ (-3)", 0.125);
+    runTest("-(+2) * (+3) - (-4) / (-5)", -6.8);
+    // More tests...
 
     // Custom input handling
     std::string userInput;
