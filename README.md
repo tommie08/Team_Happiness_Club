@@ -129,9 +129,5 @@ Most problems within **EvalEx** have straightforward solutions:
      ```
      This will recompile the code and create a new executable that is free from memory leaks and may work better.
 
-**Example 1: Simple Operators**
-Input:
-
-
 
 
