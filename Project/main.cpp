@@ -187,7 +187,8 @@ void deleteTree(ExpressionTreeNode* node) {
 // Function to check for unmatched parentheses
 bool hasUnmatchedParentheses(const std::string& expression) {
     int balance = 0;
-    for (char c : expression) {
+    for (size_t i = 0; i < expression.length(); ++i) {
+        char c = expression[i];
         if (c == '(') {
             balance++;
         } else if (c == ')') {
