@@ -6,10 +6,12 @@
 #include <cctype> // For isdigit
 #include <stdexcept>
 
+// Function to check if a character is an operator
 bool isOperator(char c) {
     return std::string("+-*/%^").find(c) != std::string::npos;
 }
 
+// Class representing a token in the expression
 class Token {
 public:
     enum Type { NUMBER, OPERATOR, PARENTHESIS };
@@ -17,24 +19,32 @@ public:
     double value;
     char symbol;
 
+    // Constructor for a number token
     Token(double val) : type(NUMBER), value(val), symbol(0) {}
+
+    // Constructor for an operator or parenthesis token
     Token(char sym) : type(isOperator(sym) ? OPERATOR : PARENTHESIS), value(0), symbol(sym) {}
 };
 
+// Class representing a node in the expression tree
 class ExpressionTreeNode {
 public:
     Token token;
     ExpressionTreeNode *left, *right;
 
+    // Constructor for a node with a token
     ExpressionTreeNode(Token tk) : token(tk), left(nullptr), right(nullptr) {}
 };
 
+// Class responsible for building the expression tree
 class ExpressionTreeBuilder {
 public:
+    // Function to build the expression tree from infix tokens
     ExpressionTreeNode* buildTree(const std::vector<Token>& infixTokens) {
         std::vector<Token> postfixTokens = toPostfix(infixTokens);
         std::stack<ExpressionTreeNode*> stack;
 
+        // Iterate through the postfix tokens
         for (std::vector<Token>::const_iterator it = postfixTokens.begin(); it != postfixTokens.end(); ++it) {
             const Token& token = *it;
             if (token.type == Token::NUMBER) {
@@ -42,6 +52,7 @@ public:
             } else if (token.type == Token::OPERATOR) {
                 ExpressionTreeNode* node = new ExpressionTreeNode(token);
 
+                // Pop the top two nodes from the stack and assign them as the left and right children of the current node
                 if (!stack.empty()) {
                     node->right = stack.top(); stack.pop();
                 }
@@ -57,15 +68,18 @@ public:
     }
 
 private:
+    // Function to convert infix tokens to postfix tokens
     std::vector<Token> toPostfix(const std::vector<Token>& tokens) {
         std::stack<Token> stack;
         std::vector<Token> output;
 
+        // Iterate through the tokens
         for (std::vector<Token>::const_iterator it = tokens.begin(); it != tokens.end(); ++it) {
             const Token& token = *it;
             if (token.type == Token::NUMBER) {
                 output.push_back(token);
             } else if (token.type == Token::OPERATOR) {
+                // Pop operators from the stack and add them to the output until a lower precedence operator is encountered
                 while (!stack.empty() && stack.top().type != Token::PARENTHESIS && 
                        getPrecedence(stack.top()) >= getPrecedence(token)) {
                     output.push_back(stack.top());
@@ -75,6 +89,7 @@ private:
             } else if (token.symbol == '(') {
                 stack.push(token);
             } else if (token.symbol == ')') {
+                // Pop operators from the stack and add them to the output until a '(' is encountered
                 while (!stack.empty() && stack.top().symbol != '(') {
                     output.push_back(stack.top());
                     stack.pop();
@@ -83,6 +98,7 @@ private:
             }
         }
 
+        // Pop any remaining operators from the stack and add them to the output
         while (!stack.empty()) {
             output.push_back(stack.top());
             stack.pop();
@@ -91,6 +107,7 @@ private:
         return output;
     }
 
+    // Function to get the precedence of an operator
     int getPrecedence(const Token& token) {
         switch (token.symbol) {
             case '+': case '-': return 1;
@@ -101,8 +118,10 @@ private:
     }
 };
 
+// Class responsible for evaluating the expression tree
 class ExpressionTreeEvaluator {
 public:
+    // Function to evaluate the expression tree and return the result
     double evaluate(ExpressionTreeNode* root) {
         if (!root) return 0;
 
@@ -110,6 +129,7 @@ public:
             return root->token.value;
         }
 
+        // Recursively evaluate the left and right subtrees and perform the corresponding operation
         double leftVal = evaluate(root->left);
         double rightVal = evaluate(root->right);
 
@@ -127,11 +147,13 @@ public:
     }
 };
 
+// Function to tokenize the input expression
 std::vector<Token> tokenize(const std::string& input) {
     std::vector<Token> tokens;
     std::string numberBuffer;
     bool expectNumber = true; // Flag indicating if a number is expected
 
+    // Iterate through the characters in the input string
     for (size_t i = 0; i < input.length(); ++i) {
         char c = input[i];
 
@@ -176,6 +198,7 @@ std::vector<Token> tokenize(const std::string& input) {
     return tokens;
 }
 
+// Function to delete the expression tree
 void deleteTree(ExpressionTreeNode* node) {
     if (node) {
         deleteTree(node->left);
@@ -184,6 +207,7 @@ void deleteTree(ExpressionTreeNode* node) {
     }
 }
 
+// Function to run a test case with a valid expression
 void runTest(const std::string& expression, double expected) {
     std::vector<Token> tokens = tokenize(expression);
     ExpressionTreeBuilder builder;
@@ -191,6 +215,7 @@ void runTest(const std::string& expression, double expected) {
     ExpressionTreeEvaluator evaluator;
     double result = evaluator.evaluate(root);
 
+    // Check if the result matches the expected value
     if (std::abs(result - expected) < 1e-6) {
         std::cout << "Test passed for: " << expression << ". Correctly identified result: " << result << std::endl;
     } else {
@@ -200,6 +225,7 @@ void runTest(const std::string& expression, double expected) {
     deleteTree(root);
 }
 
+// Function to run a test case with an invalid expression
 void runInvalidTest(const std::string& expression, const std::string& expectedError) {
     try {
         std::vector<Token> tokens = tokenize(expression);
