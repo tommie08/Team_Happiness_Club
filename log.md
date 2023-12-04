@@ -32,3 +32,10 @@
 - **Team Members attended:** Joshua, Tommy, Will, Max, Joe, Gunther
 - **Purpose of meeting:** Code and Documents 5 & 6
 - **Decisions made:** N/A
+
+### 11/29/23 - Meeting 6:
+- **Date and Time:** Dec 3 2023, @9:00 PM
+- **Place:** Virtually
+- **Team Members attended:** Joshua, Tommy, Will, Max, Joe, Gunther
+- **Purpose of meeting:** Finalize detail
+- **Decisions made:** N/A
