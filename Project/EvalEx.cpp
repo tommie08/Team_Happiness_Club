@@ -259,7 +259,7 @@ int main() {
     runTest("10 * 2 / 5", 4);
     runTest("8 * 3*8", 192);
 
-    //Test Cases Div-01 to Div-02
+    //Test Cases Div-01 to Div-03
     runTest("15 / 3", 5);
     runTest("(((20 / 5))) / (((10 / 10)))", 4);
     runTest("(5 / 8) / 9^3", 0.000857339);
