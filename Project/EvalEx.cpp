@@ -250,16 +250,19 @@ int main() {
     runTest("3 + 4", 7);
     runTest("(((2 + 3))) + (((1 + 2)))", 8);
 
-    //Test Case Sub-01
+    //Test Case Sub-01 to Sub-02
     runTest("8 - (5 - 2)", 5);
+    runTest("(((2 - 3))) - (((1 - 2)))", 0);
 
-    //Test Cases Mul-01 to Mul-02
+    //Test Cases Mul-01 to Mul-03
     runTest("10 * 2", 20);
     runTest("10 * 2 / 5", 4);
+    runTest("8 * 3*8", 192);
 
     //Test Cases Div-01 to Div-02
     runTest("15 / 3", 5);
     runTest("(((20 / 5))) / (((10 / 10)))", 4);
+    runTest("(5 / 8) / 9^3", 0.000857339);
 
     //Test Cases Exp-01 to Exp-04
     runTest("2 ^ 3", 8);
