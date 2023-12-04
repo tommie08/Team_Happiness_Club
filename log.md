@@ -36,6 +36,6 @@
 ### 11/29/23 - Meeting 6:
 - **Date and Time:** Dec 3 2023, @9:00 PM
 - **Place:** Virtually
-- **Team Members attended:** Joshua, Tommy, Will, Max, Joe, Gunther
+- **Team Members attended:** Joshua, Tommy, Will, Max
 - **Purpose of meeting:** Finalize detail
 - **Decisions made:** N/A
