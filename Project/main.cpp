@@ -3,7 +3,7 @@
 #include <stack>
 #include <string>
 #include <cmath>
-#include <cctype> // For isdigit
+#include <cctype>
 #include <stdexcept>
 
 // Function to check if a character is an operator
